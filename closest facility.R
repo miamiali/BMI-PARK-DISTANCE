@@ -247,34 +247,30 @@ ind_test2$Change.in.BMI<-as.numeric(as.character(ind_test2$Change.in.BMI))
 #step 9 plotting####
 #all<-
   ind_test2 %>%
-  ggplot(aes(x=Change.in.BMI,y=Total_Leng))+
+  ggplot(aes(x=Total_Leng,y=Change.in.BMI))+
   geom_point()+
   facet_wrap(~FIPS)+
   geom_smooth(method="lm",se=FALSE)+
-  labs(y="Distance to the closest park /m")+
-  theme(panel.grid = element_blank())
-
+  scale_x_continuous(limit=c(0,4800),breaks=c(0,2400,4800))+
+  labs(x="Distance to the closest park /m")+
+  theme(panel.grid = element_blank(),axis.text.x = element_text(size=8),axis.text.y = element_text(size=6),
+  #      strip.text = element_text(size=8),strip.background = element_rect(size=1))
+        strip.background = element_blank(),strip.text = element_blank())
 #no_extreme<-
   ind_test2 %>%
   filter(Total_Leng<=2000) %>%
-  ggplot(aes(x=Change.in.BMI,y=Total_Leng))+
+  ggplot(aes(x=Total_Leng,y=Change.in.BMI))+
   geom_point()+
   facet_wrap(~FIPS)+
   geom_smooth(method="lm",se=FALSE)+
-  scale_y_continuous(limits=c(0,2000),breaks = seq(0,2000,by=400))+
-  labs(y="Distance to the closest park /m")+
-    theme(panel.grid = element_blank())
+  scale_x_continuous(limits=c(0,2000),breaks = c(0,1000,2000))+
+  labs(x="Distance to the closest park /m")+
+    theme(panel.grid = element_blank(),axis.text.x = element_text(size=8),axis.text.y = element_text(size=6),
+ #         strip.text = element_text(size=8),strip.background = element_rect(size=1))
+      strip.background = element_blank(),strip.text = element_blank())
 
 
-ind_test2 %>%
-  filter(FIPS==36081066501) %>%
-ggplot(aes(x=Change.in.BMI,y=Total_Leng))+
-  geom_point()+
-  geom_smooth(method="lm",color="red")+
-  labs(y="Distance to the closest park /m")
 
-#save the plot
-ggsave("all.pdf")
 
 #[obsolete section]####
 
